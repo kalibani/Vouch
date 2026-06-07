@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { CopyButton } from "./CopyButton";
 
-const SAMPLE_CURL = `curl -X POST https://your-deployment.vercel.app/api/handover \\
+const SAMPLE_CURL = `curl -X POST https://vouch-builder-test-candidate-kalibani-s-team.vercel.app/api/handover \\
   -H "Content-Type: application/json" \\
   -d '{
     "hotel": { "id": "hotel_vouch_orchard", "name": "Vouch Orchard" },
@@ -61,19 +62,22 @@ export default function Home() {
         night logs (<code>freeText</code>), and the morning date (<code>asOf</code>). Returns the
         grounded handover as JSON or HTML.
       </p>
-      <pre
-        style={{
-          background: "var(--navy-900)",
-          color: "#e6edf3",
-          padding: "1.25rem",
-          borderRadius: "0.6rem",
-          overflowX: "auto",
-          fontSize: "0.82rem",
-          lineHeight: 1.6,
-        }}
-      >
-        <code>{SAMPLE_CURL}</code>
-      </pre>
+      <div style={{ position: "relative" }}>
+        <CopyButton text={SAMPLE_CURL} />
+        <pre
+          style={{
+            background: "var(--navy-900)",
+            color: "#e6edf3",
+            padding: "1.25rem",
+            borderRadius: "0.6rem",
+            overflowX: "auto",
+            fontSize: "0.82rem",
+            lineHeight: 1.6,
+          }}
+        >
+          <code>{SAMPLE_CURL}</code>
+        </pre>
+      </div>
     </main>
   );
 }
