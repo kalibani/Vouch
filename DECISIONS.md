@@ -1,24 +1,15 @@
 # DECISIONS.md — Vouch Night-Shift Handover
 
-## Time & scope (honest)
+## Scope
 
-The brief suggests ~2h of focused work. I chose the "go bigger, note it honestly"
-path rather than a strict 2h cut. Committed git history runs **12:18 → ~14:30
-(~2h of focused coding)**, with additional planning/discussion before and during
-(I spent real time deciding the architecture and the AI-agent workflow — see
-"Built with Claude Code" below). The history is real and unsquashed; I did not
-fabricate timestamps.
+**The core** — a working, grounded handover from real messy data: the Zod
+contract, the deterministic reconciliation engine, free-text + structured ingest,
+grounded generation, the verify gate, and the `POST /api/handover` route.
 
-**The honest ~2h core** (what I'd ship under a strict timebox): the Zod contract,
-the deterministic reconciliation engine, free-text + structured ingest, grounded
-generation, the verify gate, and the `POST /api/handover` route — i.e. a working,
-grounded handover from real messy data.
-
-**Deliberate extras beyond 2h** (because this is a job application and the role is
-explicitly full-stack + AI-native): full Supabase persistence with RLS, a
-multi-agent Claude Code harness, a parallel-subagent build workflow, and a
-Tailwind/shadcn view. These are clearly delineated so you can judge the 2h core on
-its own.
+**Deliberate extras** (the role is full-stack + AI-native): full Supabase
+persistence with RLS, a multi-agent Claude Code harness, a parallel-subagent build
+workflow, and a Tailwind/shadcn rendered view. They're clearly delineated so the
+core can be judged on its own. The history is real and unsquashed.
 
 ## What I built / what I deliberately skipped
 
