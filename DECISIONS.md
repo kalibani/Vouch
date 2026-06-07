@@ -28,7 +28,7 @@ state, triages to On Fire / Pending / FYI, generates a grounded, action-first
 handover where every line traces to source events, and flags
 contradictions/incomplete/injection rather than papering over them. Plus
 structured pino logs, a Supabase audit trail, a rendered view, and a test suite
-of 35 including the adversarial traps.
+of 39 including the adversarial traps.
 
 **Skipped, on purpose:**
 - **Auth / multi-user UI.** RLS policies are written (hotel-scoped by JWT claim) to

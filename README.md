@@ -46,7 +46,7 @@ Zod · Supabase (Postgres + RLS) · pino · Vitest · Biome · Vercel.
 cp .env.example .env      # set ANTHROPIC_API_KEY (+ SUPABASE_* for persistence)
 npm install
 npm run dev               # http://localhost:3000
-npm test                  # 35 tests, incl. the adversarial traps
+npm test                  # 39 tests, incl. the adversarial traps
 npm run typecheck && npm run lint
 ```
 
