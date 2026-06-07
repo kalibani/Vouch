@@ -121,7 +121,7 @@ test/                     vitest (the trap cases live here)
 This config is deliberately lean and grounding-focused — not a ported team OS.
 
 - **Rules** (`.claude/rules/`): `grounding-discipline` (the spec), `code-quality`,
-  `git-operations`, `validation-discipline`.
+  `git-operations`, `validation-discipline`, `context-management`.
 - **Hooks** (`.claude/hooks/`): `verify-code.sh` formats+lints on every edit;
   `final-check.sh` runs typecheck + lint + tests before handing back — so
   validation can't be skipped by forgetting to run it.
@@ -130,7 +130,9 @@ This config is deliberately lean and grounding-focused — not a ported team OS.
   (mirrors the production verify step — checks every handover line traces to a
   source and the injection stayed flagged). The builders are dispatched to
   implement their domain; the reviewers gate every change before commit.
-- **Commands** (`.claude/commands/`): `/validate`, `/review`.
+- **Commands** (`.claude/commands/`): `/validate`, `/review`, `/handover`
+  (capture session state to a gitignored `HANDOVER.md` so a fresh session resumes
+  cleanly across context limits).
 
 The intent: productivity (no prompt friction, auto-checks), precision (grounding
 rules + schema-validated model output), accuracy (tests-with-code + Stop-hook gate

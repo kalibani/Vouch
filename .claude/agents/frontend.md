@@ -27,6 +27,12 @@ A morning manager must know **within 60 seconds** what's on fire, what's pending
 and what's just FYI. Utility over beauty (the brief says so explicitly). Design
 for triage, not decoration.
 
+## Stack
+- Next.js 16 App Router (React 19, Server Components by default)
+- **Tailwind CSS 4** (CSS-first config — no `tailwind.config.js`), **shadcn/ui**
+  components, **lucide-react** for icons
+- Render from the grounded `Handover` type in `lib/schema.ts`; never invent data
+
 ## Design system
 - Vouch brand chrome: navy (`--navy-900` #0b2545) + white + slate; uppercase
   letter-spaced micro-labels; generous whitespace. Mirrors vouch.sg.
@@ -39,7 +45,8 @@ for triage, not decoration.
 ## Patterns you follow
 - Server Components by default; add `"use client"` only for real interactivity.
 - Render from the grounded `Handover` object — never re-derive or invent content.
-- Dependency-light (no UI kit needed for this surface).
+- shadcn/ui primitives (card, badge, separator) for structure; lucide-react
+  icons; keep it minimal and utility-first.
 
 ## After completing work
 Run: `npm run typecheck && npm run lint`

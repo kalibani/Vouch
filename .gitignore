@@ -41,3 +41,10 @@ tmp/
 next-env.d.ts
 *.tsbuildinfo
 .vercel
+
+# Session handover scratch (resume aid, not a deliverable). Anchored to root so it
+# does NOT match .claude/commands/handover.md (git is case-insensitive on macOS).
+/HANDOVER.md
+
+# Stray pnpm lockfile — this project uses npm (package-lock.json).
+pnpm-lock.yaml
