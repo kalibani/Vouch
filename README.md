@@ -70,8 +70,9 @@ curl -s -X POST https://vouch-builder-test-candidate-kalibani-s-team.vercel.app/
 ```
 
 The response groups items into `onFire` / `pending` / `fyi`; every item carries
-`sourceEventIds`, its `flags`, and a `grounding` report. A rendered view of a
-representative handover is at `/handover`.
+`sourceEventIds`, its `flags`, and a `grounding` report. A rendered view is at
+`/handover` — live pipeline output cached hourly, with a representative fixture as
+fallback when the model/DB is unavailable.
 
 ## Deploy
 

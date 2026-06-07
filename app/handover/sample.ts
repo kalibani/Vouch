@@ -17,9 +17,11 @@ import type { Handover } from "@/lib/schema";
  *   - a newly_resolved item, and FYI items.
  *
  * Every item carries non-empty `sourceEventIds`; the grounding strip reflects
- * the report. This is illustrative data only — see the TODO below.
+ * the report.
  *
- * TODO: replace fixture with POST /api/handover output once the pipeline lands.
+ * Role: this is the graceful FALLBACK for the rendered view. `app/handover/page.tsx`
+ * renders LIVE, cached pipeline output by default and only drops to this fixture
+ * when the model/DB is unavailable, so the page always renders something honest.
  */
 export const SAMPLE: Handover = {
   runId: "run_demo_20260530_0700",

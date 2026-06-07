@@ -34,11 +34,13 @@ of 39 including the adversarial traps.
 - **Auth / multi-user UI.** RLS policies are written (hotel-scoped by JWT claim) to
   show the multi-tenant shape, but there's no login. The server pipeline uses the
   service-role key. A real deployment would mint per-hotel scoped tokens.
-- **The view renders a representative fixture, not a live model call per page
-  load.** Rendering would otherwise run Haiku+Sonnet (~30s, real cost) on every
-  visit. The **live grounded handover is the API** (`/api/handover`); the page
-  shows the design + a representative example. Sharp tradeoff per "utility over
-  beauty."
+- **The view caches its live handover hourly rather than running the model on
+  every page load.** A fresh render per visitor would fire Haiku+Sonnet (~30s,
+  real cost) every time; `/handover` instead serves a *real* pipeline result
+  cached for an hour (`unstable_cache`, page is `force-dynamic` so the model never
+  runs at build), falling back to a representative fixture if the model/DB is
+  unavailable. The canonical live, per-request path remains the API
+  (`/api/handover`).
 - **A persisted cross-night demo.** Persistence is best-effort and the pipeline
   reconciles over stored history when the DB is up, but the sample request carries
   the whole week, so in-memory == stored for the demo.
@@ -123,7 +125,7 @@ guardrails to avoid file collisions.
   step, with a second-model auditor pass behind the programmatic gate.
 - Per-hotel scoped tokens so RLS is exercised end-to-end; a thin `/runs` view over
   `handover_runs` for "why did this hotel get this handover this night".
-- Wire the page to a cached (`revalidate`) live handover; add a Slack/email format.
+- Add a Slack/email render format and an on-demand "refresh" control for the cached page.
 - A golden-snapshot test over a mocked full pipeline to lock the handover shape.
 
 ## One thing that surprised me
