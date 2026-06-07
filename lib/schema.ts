@@ -62,6 +62,9 @@ export const FreeTextLogSchema = z.object({
   label: z.string().optional(),
   /** The raw prose for one shift, verbatim. Treated as DATA, never instructions. */
   text: z.string(),
+  /** Morning date (YYYY-MM-DD) this log's night belongs to. The caller knows
+   * which night a relief log covers; prose rarely carries an exact date. */
+  morningDate: z.string().optional(),
 });
 export type FreeTextLog = z.infer<typeof FreeTextLogSchema>;
 
