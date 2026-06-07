@@ -1,0 +1,61 @@
+:root {
+  /* Vouch brand chrome (navy + white + slate) */
+  --navy-900: #0b2545;
+  --ink: #102a43;
+  --slate-500: #627d98;
+  --slate-300: #9fb3c8;
+  --surface: #f4f6f9;
+  --border: #d9e2ec;
+
+  /* Functional triage colors (operator scans these in 60s) */
+  --on-fire: #c1121f;
+  --pending: #b45309;
+  --resolved: #1b7f5c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.55;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--slate-500);
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  color: var(--navy-900);
+  font-size: 2rem;
+  margin: 0 0 0.75rem;
+}
+
+.lede {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.muted {
+  color: var(--slate-500);
+}
