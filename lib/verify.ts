@@ -22,7 +22,12 @@ function sourceText(thread: Thread): string {
   return parts.join(" ").toLowerCase();
 }
 
-const NUMBER_TOKEN = /\b\d{2,4}\b/g; // rooms / counts
+// Room-like numbers are 3-4 digits here. We deliberately do NOT check 2-digit
+// numbers: those are almost always times or small counts that legitimately
+// reformat (e.g. the source's "6am" becomes "06:00"), and flagging them would
+// rewrite a perfectly grounded line. Invented rooms (3-digit) and money amounts
+// (SGD prefix) — the things that actually matter — are still caught.
+const NUMBER_TOKEN = /\b\d{3,4}\b/g;
 const AMOUNT_TOKEN = /(?:sgd|usd|\$)\s?(\d[\d,]*)/gi;
 
 /** Numbers/amounts present in `text` but absent from the thread's `source`. */

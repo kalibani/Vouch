@@ -65,6 +65,40 @@ export function categoryOf(type: string, description: string): string {
   return t || "note";
 }
 
+/**
+ * Map a free-text category guess onto the SAME canonical vocabulary the structured
+ * feed uses, based on the event text. A corridor leak is "facilities" whether it
+ * was logged in the system or written up by hand — so a single issue spanning both
+ * sources stays ONE thread cluster instead of splitting into a phantom "still open"
+ * one. Free-text only; structured events use `categoryOf`.
+ *
+ * Order matters: a guest's passport locked in a SAFE is an incident, not an
+ * immigration-compliance item, so the safe rule is checked before compliance.
+ */
+const CATEGORY_SYNONYMS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/\bsafe\b|lockbox|deposit box|vault|保险箱/i, "incident"],
+  [
+    /immigration|reporting (system|deadline)|not scanned|passport.*scan|scan.*passport/i,
+    "compliance",
+  ],
+  // Check the equipment (aircon) before the symptom (leak): "aircon leaking" is a
+  // maintenance issue, while a bare "corridor leak/drip" is facilities.
+  [/aircon|air-?con|a\/c|hvac|compressor|cooling/i, "maintenance"],
+  [/leak|flood|corridor|drip|carpet|wet floor/i, "facilities"],
+  [/no.?show/i, "no_show"],
+  [/deposit/i, "deposit"],
+  [/damage|broken|cracked|stain/i, "damage"],
+  [/wifi|internet|noise|complain|breakfast|kitchen/i, "complaint"],
+];
+
+export function canonicalCategory(raw: string, text: string): string {
+  const hay = `${raw} ${text}`;
+  for (const [re, cat] of CATEGORY_SYNONYMS) {
+    if (re.test(hay)) return cat;
+  }
+  return raw.toLowerCase().trim().replace(/\s+/g, "_") || "note";
+}
+
 /** Categories whose "resolved" events are pure FYI (a smooth check-in, a held
  * parcel) rather than the closing of a problem. */
 const INFO_CATEGORIES = new Set(["check_in", "note", "finance_note", "walk_in"]);

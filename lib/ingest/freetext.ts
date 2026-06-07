@@ -21,7 +21,7 @@ import {
   FREETEXT_EXTRACTION_SYSTEM,
 } from "../model/prompts";
 import { type FreeTextLog, type NormalizedEvent, NormalizedEventSchema } from "../schema";
-import { looksLikeInjection, singleRoomRef } from "./structured";
+import { canonicalCategory, looksLikeInjection, singleRoomRef } from "./structured";
 
 export interface ExtractFreeTextOptions {
   /** Morning date (YYYY-MM-DD) the handover is for; used to synthesize timestamps. */
@@ -82,7 +82,10 @@ function toNormalizedEvent(
     hotelId,
     // Prose lacks exact times; synthesize a deterministic time inside the night.
     timestamp: `${morningDate}T02:00:00+08:00`,
-    category: extracted.category,
+    category: canonicalCategory(
+      extracted.category,
+      `${extracted.sourceSpan} ${extracted.description}`,
+    ),
     room,
     guest: null,
     description: extracted.description,
