@@ -1,3 +1,19 @@
+@import "tailwindcss";
+
+/*
+ * Vouch night-shift handover — design tokens.
+ *
+ * Tailwind 4 is configured CSS-first (no tailwind.config.js). The Vouch brand
+ * chrome and the functional triage colors live as CSS custom properties on
+ * :root, re-exported into Tailwind's theme via `@theme inline` so they work as
+ * utilities (e.g. text-on-fire, bg-navy-900) and as arbitrary values.
+ *
+ * A small set of shadcn neutral tokens (background/foreground/card/muted/
+ * border/radius) is kept so the hand-rolled card/badge/separator primitives in
+ * components/ui/ have their variables. Dark mode, chart, and sidebar tokens
+ * from `shadcn init` were dropped — this surface is a single light-mode view.
+ */
+
 :root {
   /* Vouch brand chrome (navy + white + slate) */
   --navy-900: #0b2545;
@@ -11,6 +27,50 @@
   --on-fire: #c1121f;
   --pending: #b45309;
   --resolved: #1b7f5c;
+
+  /* Soft tints for section/card backgrounds (color as a second signal only) */
+  --on-fire-tint: #fdeceb;
+  --pending-tint: #fdf3e4;
+  --resolved-tint: #e9f5ef;
+  --warning-tint: #fff8e1;
+
+  /* Neutral shadcn-style surface tokens */
+  --background: #ffffff;
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --muted: var(--surface);
+  --muted-foreground: var(--slate-500);
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --color-navy-900: var(--navy-900);
+  --color-ink: var(--ink);
+  --color-slate-500: var(--slate-500);
+  --color-slate-300: var(--slate-300);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+
+  --color-on-fire: var(--on-fire);
+  --color-pending: var(--pending);
+  --color-resolved: var(--resolved);
+
+  --color-on-fire-tint: var(--on-fire-tint);
+  --color-pending-tint: var(--pending-tint);
+  --color-resolved-tint: var(--resolved-tint);
+  --color-warning-tint: var(--warning-tint);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 }
 
 * {
@@ -29,6 +89,8 @@ body {
   background: #fff;
   line-height: 1.55;
 }
+
+/* --- Landing page primitives (kept for app/page.tsx) --- */
 
 .container {
   max-width: 880px;
