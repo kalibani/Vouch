@@ -14,6 +14,9 @@ import { HandoverRequestSchema } from "@/lib/schema";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+// The GET convenience runs the full pipeline (model + DB). Force dynamic so it
+// never serves a cached/stale handover or wastes model spend on a build render.
+export const dynamic = "force-dynamic";
 
 function isNonEmptyObject(v: unknown): boolean {
   return Boolean(v) && typeof v === "object" && Object.keys(v as object).length > 0;

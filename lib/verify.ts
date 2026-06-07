@@ -30,17 +30,28 @@ function sourceText(thread: Thread): string {
 const NUMBER_TOKEN = /\b\d{3,4}\b/g;
 const AMOUNT_TOKEN = /(?:sgd|usd|\$)\s?(\d[\d,]*)/gi;
 
+/** The set of WHOLE number tokens in the source (commas stripped). We compare by
+ * token equality, not substring: an invented "room 100" must NOT count as grounded
+ * just because a source amount happens to contain "1000". (Residual: a 4-digit
+ * 24h time written without a colon, e.g. "0530", isn't in the source set and would
+ * be rewritten — rare; documented in DECISIONS.md.) */
+function sourceNumberSet(source: string): Set<string> {
+  const set = new Set<string>();
+  for (const m of source.matchAll(/\d[\d,]*/g)) set.add(m[0].replace(/,/g, ""));
+  return set;
+}
+
 /** Numbers/amounts present in `text` but absent from the thread's `source`. */
 function unsupportedEntities(text: string, source: string): string[] {
-  const sourceDigits = source.replace(/[^\d]/g, " ");
+  const nums = sourceNumberSet(source);
   const out: string[] = [];
   const lower = text.toLowerCase();
   for (const m of lower.matchAll(NUMBER_TOKEN)) {
-    if (!source.includes(m[0])) out.push(`number ${m[0]}`);
+    if (!nums.has(m[0])) out.push(`number ${m[0]}`);
   }
   for (const m of lower.matchAll(AMOUNT_TOKEN)) {
     const digits = (m[1] ?? "").replace(/[^\d]/g, "");
-    if (digits && !sourceDigits.includes(digits)) out.push(`amount ${m[0]}`);
+    if (digits && !nums.has(digits)) out.push(`amount ${m[0]}`);
   }
   return out;
 }
