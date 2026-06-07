@@ -13,6 +13,10 @@ obeyed).
 > Task brief: [`BRIEF.md`](BRIEF.md) · Design rationale: [`DECISIONS.md`](DECISIONS.md)
 > · Agent guidance: [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md)
 
+**Live:** <https://vouch-builder-test-candidate-kalibani-s-team.vercel.app> —
+`curl -s https://vouch-builder-test-candidate-kalibani-s-team.vercel.app/api/handover | jq`
+(no body needed; runs over the bundled sample, ~30s for the live Haiku+Sonnet pass).
+
 ## Pipeline
 
 ```
@@ -54,10 +58,10 @@ bundled sample, so it's hittable with a bare `curl`. `GET` does the same.
 
 ```bash
 # bundled sample (no body needed)
-curl -s https://<DEPLOYED_URL>/api/handover | jq
+curl -s https://vouch-builder-test-candidate-kalibani-s-team.vercel.app/api/handover | jq
 
 # your own data
-curl -s -X POST https://<DEPLOYED_URL>/api/handover \
+curl -s -X POST https://vouch-builder-test-candidate-kalibani-s-team.vercel.app/api/handover \
   -H 'content-type: application/json' \
   -d '{ "hotel": {"id":"lumen-sg","name":"Lumen Boutique Hotel"},
         "events": [ /* RawEvent[] */ ],
